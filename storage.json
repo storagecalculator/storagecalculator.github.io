@@ -1,0 +1,62 @@
+{
+    "Google One": [
+        {
+            "Storage": 15,
+            "Price": 0,
+            "iOS": true,
+            "Android": true,
+            "MacOS": true
+        },
+        {
+            "Storage": 100,
+            "Price": 1.99,
+            "iOS": true,
+            "Android": true,
+            "MacOS": true
+        },
+        {
+            "Storage": 200,
+            "Price": 2.99,
+            "iOS": true,
+            "Android": true,
+            "MacOS": true
+        },
+        {
+            "Storage": 2000,
+            "Price": 9.99,
+            "iOS": true,
+            "Android": true,
+            "MacOS": true
+        }
+    ],
+    "Apple iCloud": [
+        {
+            "Storage": 5,
+            "Price": 0,
+            "iOS": true,
+            "Android": false,
+            "MacOS": true
+        },
+        {
+            "Storage": 50,
+            "Price": 0.99,
+            "iOS": true,
+            "Android": false,
+            "MacOS": true
+        },
+        {
+            "Storage": 200,
+            "Price": 2.99,
+            "iOS": true,
+            "Android": false,
+            "MacOS": true
+        },
+        {
+            "Storage": 2000,
+            "Price": 9.99,
+            "iOS": true,
+            "Android": false,
+            "MacOS": true
+        }
+    ]
+}

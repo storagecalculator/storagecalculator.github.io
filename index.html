@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>StoragePricer</title>
+    <meta name="description" content="Personalized storage and backup solutions for every need.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <div id="headingDiv">
+        <img id="cloudImg" src="cloud_logo.png">
+        <h1 class="heading">StoragePricer.com</h1>
+        <h4 class="heading">Personalized Cloud Storage Solutions</h4>
+    </div>
+
+    <div id="allTopItems">
+        <input type="text" id="storageSize" placeholder="GB of storage">
+        <button onclick="calculateStorage()" id="calculateBtn">Get Recommendations</button>
+        <br>
+    
+        <div class="item">
+            <h4 class="checkboxPrompt">Compatibility:</h4>
+        </div>
+        <div class="item">
+            <input type="checkbox" id="iOSCheck">
+            <label class="checkboxLabel">iOS/iPadOS</label>
+        </div>
+        <div class="item">
+            <input type="checkbox" id="AndroidCheck">
+            <label class="checkboxLabel">Android</label>
+        </div>
+        <div class="item">
+            <input type="checkbox" id="MacOSCheck">
+            <label class="checkboxLabel">MacOS</label>
+        </div>
+        <div class="item">
+            <input type="checkbox" id="WindowsCheck">
+            <label class="checkboxLabel">Windows</label>
+        </div>
+        <div class="item">
+            <input type="checkbox" id="WebCheck">
+            <label class="checkboxLabel">Web</label>
+        </div>
+
+    </div>
+
+    <div id="allListItems">
+        <div id="list">
+            <div>Calculate To Show Results</div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+
+        var textDB = '{"Google One":[{"Storage":15,"Price":0,"iOS":true,"Android":true,"MacOS":true},{"Storage":100,"Price":1.99,"iOS":true,"Android":true,"MacOS":true},{"Storage":200,"Price":2.99,"iOS":true,"Android":true,"MacOS":true},{"Storage":2000,"Price":9.99,"iOS":true,"Android":true,"MacOS":true}],"Apple iCloud":[{"Storage":5,"Price":0,"iOS":true,"Android":false,"MacOS":true},{"Storage":50,"Price":0.99,"iOS":true,"Android":false,"MacOS":true},{"Storage":200,"Price":2.99,"iOS":true,"Android":false,"MacOS":true},{"Storage":2000,"Price":9.99,"iOS":true,"Android":false,"MacOS":true}]}'
+
+        parsedJSON = JSON.parse(textDB);
+
+        function calculateStorage() {
+            var resetElem = document.getElementById("list");
+            resetElem.innerHTML = '';
+            input = document.getElementById("storageSize").value;
+
+            if ((input == '') || isNaN(input) || !(Number.isInteger(Number(input))) || (Number(input) < 1)) {
+                invalidInput();
+                return;
+            }
+            if(Number(input) > 2000) {
+                inputTooHigh()
+                return;
+            }
+
+            for (var key in parsedJSON) {
+                    var val = parsedJSON[key];
+                    var storageTypeHeader = document.createElement("h3");
+                    storageTypeHeader.innerHTML = key + " Plans";
+                    document.getElementById("list").appendChild(storageTypeHeader);
+                    
+                    for (var i in val) {
+                        var count = 0;
+                        var inner = val[i];
+                        
+                        if (inner["Storage"] < input){
+                            continue;
+                        }
+                        if(inner["iOS"] == false && document.getElementById("iOSCheck").checked){
+                            continue;
+                        }
+                        if(inner["MacOS"] == false && document.getElementById("MacOSCheck").checked){
+                            continue;
+                        }
+                        if(inner["Android"] == false && document.getElementById("AndroidCheck").checked){
+                            continue;
+                        }
+
+                        var storageLineDetails = '';
+                        for (var x in inner) {
+                            if (x == "Storage") {
+                                storageLineDetails += inner[x] +"GB of cloud storage for $";
+                            } else if (x == "Price") {
+                                storageLineDetails += inner[x] + "/month";
+                            } else {
+                                storageLineDetails += ""
+                            }
+                        }
+                        var storageOption = document.createElement("div");
+                        storageOption.innerHTML = storageLineDetails;
+                        document.getElementById("list").appendChild(storageOption);
+                        count++;
+                    }
+                    if(count == 0) {
+                        var storageOption = document.createElement("div");
+                        storageOption.style.fontStyle = "italic";
+                        storageOption.style.backgroundColor = "#DB504A";
+                        storageOption.innerHTML = "No plans fit your requirements";
+                        document.getElementById("list").appendChild(storageOption);
+                    }
+            }
+        }
+
+        function invalidInput() {
+            document.getElementById("storageSize").value = '';
+            alert("Please enter a valid storage size.");
+        }
+        function inputTooHigh() {
+            document.getElementById("storageSize").value = '';
+            alert("Unfortunately, we couldn't find any storage options that fit your requirements.");
+        }
+
+    </script>
+
+</body>
+
+</html>
