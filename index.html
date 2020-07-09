@@ -18,7 +18,7 @@
     <div id="headingDiv">
         <img id="cloudImg" src="media/cloud_logo.png">
         <h1 class="heading">StoragePricer.com</h1>
-        <h4 class="heading">Personalized Storage Solutions</h4>
+        <h4 class="heading">Personalized Storage Recommendations</h4>
     </div>
 
     <div id="allTopItems">
@@ -134,6 +134,14 @@
             document.getElementById("storageSize").value = '';
             alert("Unfortunately, we couldn't find any storage options that fit your requirements.");
         }
+
+        document.getElementById("storageSize")
+            .addEventListener("keyup", function(event) {
+            event.preventDefault();
+            if (event.keyCode === 13) {
+                calculateStorage();
+            }
+        });
 
     </script>
 
